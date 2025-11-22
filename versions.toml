@@ -1,0 +1,19 @@
+[versions]
+spring-boot = "3.3.1"
+h2 = "2.2.224"
+lombok = "1.18.30"
+
+[libraries]
+spring-starter-web = {group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring-boot" }
+spring-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+
+[bundles]
+implementation = [
+    "spring-starter-web",
+    "spring-starter-data-jpa",
+    "h2",
+    "lombok"
+]
+
