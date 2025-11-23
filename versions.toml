@@ -8,6 +8,7 @@ caffeine = "3.1.8"
 spring-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring-boot" }
 spring-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
 spring-starter-cache = { group = "org.springframework.boot", name = "spring-boot-starter-cache", version.ref = "spring-boot" }
+spring-boot-starter-data-redis = { group = "org.springframework.boot", name = "spring-boot-starter-data-redis", version.ref = "spring-boot" }
 caffeine = { group = "com.github.ben-manes.caffeine", name = "caffeine", version.ref = "caffeine" }
 h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
@@ -17,6 +18,7 @@ implementation = [
     "spring-starter-web",
     "spring-starter-data-jpa",
     "spring-starter-cache",
+    "spring-boot-starter-data-redis",
     "caffeine",
     "h2",
     "lombok"
