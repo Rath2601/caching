@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # Redis Server
+  redis:
+    image: redis:7-alpine
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - caching-network
+
+  # Application Instance 1
+  app-1:
+    image: caching-app:latest
+    container_name: caching-app-1
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      - APP_CACHE_PROVIDER=redis
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - LOGGING_LEVEL_ORG_EXAMPLE_APP=INFO
+    networks:
+      - caching-network
+    restart: unless-stopped
+
+  # Application Instance 2
+  app-2:
+    image: caching-app:latest
+    container_name: caching-app-2
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    environment:
+      - SERVER_PORT=8080
+      - APP_CACHE_PROVIDER=redis
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - LOGGING_LEVEL_ORG_EXAMPLE_APP=INFO
+    networks:
+      - caching-network
+    restart: unless-stopped
+
+  # Application Instance 3
+  app-3:
+    image: caching-app:latest
+    container_name: caching-app-3
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "8082:8080"
+    environment:
+      - SERVER_PORT=8080
+      - APP_CACHE_PROVIDER=redis
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - LOGGING_LEVEL_ORG_EXAMPLE_APP=INFO
+    networks:
+      - caching-network
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  caching-network:
+    driver: bridge
+
